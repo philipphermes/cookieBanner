@@ -29,3 +29,7 @@
 ## Notes:
 
 The index.html is a small demo, you can delete it!
+
+## Todos:
+* make css pretty
+* add allow all button
