@@ -36,6 +36,12 @@ const link = '#cookiesInfo';
 const cookieBannerLifeTime = 365;
 ```
 
+### Change cookie Options
+Add this button
+```html
+<button onclick="generateBanner()">Change Cookie Settings</button>
+```
+
 ## [Preview](https://htmlpreview.github.io/?https://github.com/philipphermes/cookieBanner/blob/main/index.html)
 
 ## Notes:

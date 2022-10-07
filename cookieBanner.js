@@ -2,8 +2,11 @@ const cookieBanner = document.getElementById('cookieBanner');
 const link = '#cookiesInfo';
 const cookieBannerLifeTime = 365;
 
-generateBanner();
-removeElements();
+if (typeof getCookie('cookieBanner') === 'undefined') {
+    generateBanner();
+} else {
+    removeElements();
+}
 
 function generateBanner() {
     let html = '';
@@ -15,6 +18,38 @@ function generateBanner() {
     }
 
     cookieBanner.innerHTML = html;
+
+    const performanceCheckBox = document.getElementById('performanceCheckBox');
+    const functionalCheckbox = document.getElementById("functionalCheckBox");
+    const marketingCheckbox = document.getElementById("marketingCheckBox");
+
+    const cookie = getCookie('cookieBanner');
+
+    if (typeof cookie !== 'undefined') {
+        const json = JSON.parse(cookie);
+
+        if (json['performance'] === 'block') {
+            performanceCheckBox.checked = false;
+        } else {
+            performanceCheckBox.checked = true;
+        }
+
+        if (json['functional'] === 'block') {
+            functionalCheckbox.checked = false;
+        } else {
+            functionalCheckbox.checked = true;
+        }
+
+        if (json['marketing'] === 'block') {
+            marketingCheckbox.checked = false;
+        } else {
+            marketingCheckbox.checked = true;
+        }
+    } else {
+        performanceCheckBox.checked = true;
+        functionalCheckbox.checked = true;
+        marketingCheckbox.checked = true;
+    }
 }
 
 function getDeHtml() {
@@ -65,46 +100,26 @@ function removeElements() {
     const functionalElements = document.getElementsByClassName("functional");
     const marketingElements = document.getElementsByClassName("marketing");
 
-    const performanceCheckBox = document.getElementById('performanceCheckBox');
-    const functionalCheckbox = document.getElementById("functionalCheckBox");
-    const marketingCheckbox = document.getElementById("marketingCheckBox");
-
     if (cookie !== '') {
         const json = JSON.parse(cookie);
 
         if (json['performance'] === 'block') {
-            performanceCheckBox.checked = false;
-
             for(let i = 0; i < performanceElements.length; i++) {
                 performanceElements[i].innerHTML = "";
             }
-        } else {
-            performanceCheckBox.checked = true;
         }
 
         if (json['functional'] === 'block') {
-            functionalCheckbox.checked = false;
-
             for(let i = 0; i < functionalElements.length; i++) {
                 functionalElements[i].innerHTML = "";
             }
-        } else {
-            functionalCheckbox.checked = true;
         }
 
         if (json['marketing'] === 'block') {
-            marketingCheckbox.checked = false;
-
             for(let i = 0; i < marketingElements.length; i++) {
                 marketingElements[i].innerHTML = "";
             }
-        } else {
-            marketingCheckbox.checked = true;
         }
-    } else {
-        performanceCheckBox.checked = true;
-        functionalCheckbox.checked = true;
-        marketingCheckbox.checked = true;
     }
 }
 
