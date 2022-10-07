@@ -64,13 +64,15 @@ function getDeHtml() {
     return "<div class='bottom'>" +
         "<div class='text'>" + textDe + "</div>" +
         "<div class='checks'>" +
-        "<div class='checkBox'><input type='checkbox' id='performanceCheckBox'><label for='performanceCheckBox'>Performance</label></div>" +
-        "<div class='checkBox'><input type='checkbox' id='functionalCheckBox'><label for='functionalCheckBox'>Funktionale</label></div>" +
-        "<div class='checkBox'><input type='checkbox' id='marketingCheckBox'><label for='marketingCheckBox'>Marketing</label></div>" +
+        "<div class='checkboxes'>" +
+        "<div class='checkbox'><input type='checkbox' id='performanceCheckBox'><label for='performanceCheckBox'>Performance</label></div>" +
+        "<div class='checkbox'><input type='checkbox' id='functionalCheckBox'><label for='functionalCheckBox'>Funktionale</label></div>" +
+        "<div class='checkbox'><input type='checkbox' id='marketingCheckBox'><label for='marketingCheckBox'>Marketing</label></div>" +
+        "</div><div class='buttons'>" +
         "<button onclick='blockBanner()' id='blockAll'>Alle Blockieren</button>" +
         "<button onclick='acceptAll()' id='acceptAll'>Alle Akzeptieren</button>" +
         "<button onclick='saveBanner()' id='saveBanner'>Speichern</button>" +
-        "</div></div>";
+        "</div></div></div>";
 }
 
 function getEnHtml() {
