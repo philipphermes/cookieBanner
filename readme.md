@@ -42,6 +42,10 @@ Add this button
 <button onclick="generateBanner()">Change Cookie Settings</button>
 ```
 
+### CookieBanner Cookie
+* name: cookieBanner
+* value: {"performance":"show","functional":"show","marketing":"show"}
+
 ## [Preview](https://htmlpreview.github.io/?https://github.com/philipphermes/cookieBanner/blob/main/index.html)
 
 ## Notes:
