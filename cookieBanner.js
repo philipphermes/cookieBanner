@@ -6,11 +6,12 @@ cookieBanner.innerHTML =
     "<div class='bottom'>" +
     "<div class='text'>" + text + "</div>" +
     "<div class='checks'>" +
-    "<input type='checkbox' id='performanceCheckBox'><label for='performanceCheckBox'>Performance</label><br/>" +
-    "<input type='checkbox' id='functionalCheckBox'><label for='functionalCheckBox'>Functional</label><br/>" +
-    "<input type='checkbox' id='marketingCheckBox'><label for='marketingCheckBox'>Marketing</label><br/>" +
-    "<button onclick='blockBanner()'>Block All</button>" +
-    "<button onclick='saveBanner()'>Save</button>" +
+    "<div class='checkBox'><input type='checkbox' id='performanceCheckBox'><label for='performanceCheckBox'>Performance</label></div>" +
+    "<div class='checkBox'><input type='checkbox' id='functionalCheckBox'><label for='functionalCheckBox'>Functional</label></div>" +
+    "<div class='checkBox'><input type='checkbox' id='marketingCheckBox'><label for='marketingCheckBox'>Marketing</label></div>" +
+    "<button onclick='blockBanner()' id='blockAll'>Block All</button>" +
+    "<button onclick='acceptAll()' id='acceptAll'>Accept All</button>" +
+    "<button onclick='saveBanner()' id='saveBanner'>Save</button>" +
     "</div></div>";
 
 removeElements();
@@ -101,6 +102,15 @@ function saveBanner() {
         data['marketing'] = 'block';
     }
 
+    const jsonData = JSON.stringify(data);
+
+    setCookie('cookieBanner', jsonData, 365)
+
+    window.top.location.reload();
+}
+
+function acceptAll() {
+    const data = {'performance': 'show', 'functional': 'show', 'marketing': 'show'};
     const jsonData = JSON.stringify(data);
 
     setCookie('cookieBanner', jsonData, 365)
