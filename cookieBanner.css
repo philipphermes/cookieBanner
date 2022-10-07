@@ -1,18 +1,31 @@
+:root {
+    --banner-background: #3b3b3b;
+    --banner-font-color: #FFF;
+    --banner-block-all-buttom: #ff4545;
+    --banner-block-all-buttom-hover: #b73131;
+    --banner-accept-all-buttom: #b5ff45;
+    --banner-accept-all-buttom-hover: #6c9828;
+    --banner-save-buttom: #45ffe3;
+    --banner-save-buttom-hover: #2a9f8d;
+    --banner-button-border: black;
+    --banner-button-font-color: black;
+}
+
 #cookieBanner .bottom {
     position: absolute;
     bottom: 0;
     width: 100vw;
     height: min-content;
     max-height: 200px;
-    background: lightslategrey;
+    background: var(--banner-background);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    color: white;
+    color: var(--banner-font-color);
 }
 
 #cookieBanner .bottom a {
-    color: white;
+    color: var(--banner-font-color);
 }
 
 #cookieBanner .bottom .text {
@@ -48,10 +61,11 @@
 #cookieBanner .bottom button {
     border-radius: 25px;
     box-shadow: none;
-    border: 2px solid black;
+    border: 2px solid var(--banner-button-border);
     padding: 5px;
     margin-right: 5px;
     width: max-content;
+    color: var(--banner-button-font-color);
 }
 
 @media screen and (max-device-width: 800px) {
@@ -78,25 +92,25 @@
 }
 
 #blockAll {
-    background-color: indianred;
+    background-color: var(--banner-block-all-buttom);
 }
 
 #blockAll:hover {
-    background-color: darkred;
+    background-color: var(--banner-block-all-buttom-hover);
 }
 
 #acceptAll {
-    background-color: darkseagreen;
+    background-color: var(--banner-accept-all-buttom);
 }
 
 #acceptAll:hover {
-    background-color: darkgreen;
+    background-color: var(--banner-accept-all-buttom-hover);
 }
 
 #saveBanner {
-    background-color: lightskyblue;
+    background-color: var(--banner-save-buttom);
 }
 
 #saveBanner:hover {
-    background-color: dodgerblue;
+    background-color: var(--banner-save-buttom-hover);
 }
