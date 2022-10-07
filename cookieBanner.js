@@ -2,7 +2,7 @@ const cookieBanner = document.getElementById('cookieBanner');
 const link = '#cookiesInfo';
 const cookieBannerLifeTime = 365;
 
-if (typeof getCookie('cookieBanner') === 'undefined') {
+if (getCookie('cookieBanner') === '') {
     generateBanner();
 } else {
     removeElements();
