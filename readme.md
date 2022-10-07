@@ -29,6 +29,13 @@ Setting lang in html to de will load german text setting en will load english te
 <div class="marketing">Your Content</div>
 ```
 
+### Change Link and Cookie Life Time
+You can change them in th cookieBanner.js file
+```js
+const link = '#cookiesInfo';
+const cookieBannerLifeTime = 365;
+```
+
 ## [Preview](https://htmlpreview.github.io/?https://github.com/philipphermes/cookieBanner/blob/main/index.html)
 
 ## Notes:
