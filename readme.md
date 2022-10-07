@@ -41,9 +41,7 @@ const cookieBannerLifeTime = 365;
 ## Notes:
 
 * The index.html is a small demo, you can delete it!
-* The text in the banner is a place holder which i got from miro, it will be removed soon!
 
 ## Todos:
 
 * make css pretty
-* add allow all button
