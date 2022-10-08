@@ -33,16 +33,17 @@ Generates a banner if the cookieBanner cookie is not set, else it will generate 
 
 ### Change Link and Cookie Life Time
 You can change them in th cookieBanner.js file
+
 ```js
 const link = '#cookiesInfo';
 const cookieBannerLifeTime = 365;
 ```
 
 ### CookieBanner Cookie
-* name: cookieBanner
-* value: {"performance":"show","functional":"show","marketing":"show"}
+* name: `cookieBanner`
+* value: `{"performance":"show","functional":"show","marketing":"show"}`
 
-## [Preview](https://htmlpreview.github.io/?https://github.com/philipphermes/cookieBanner/blob/main/index.html)
+### [Preview the index.html](https://htmlpreview.github.io/?https://github.com/philipphermes/cookieBanner/blob/main/index.html)
 
 ## Notes:
 
