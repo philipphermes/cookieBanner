@@ -6,18 +6,23 @@ if (getCookie('cookieBanner') === '') {
     generateBanner();
 } else {
     removeElements();
+    generateButton();
+}
+
+function generateButton() {
+    if (document.documentElement.lang === 'de') {
+        cookieBanner.innerHTML = '<button onclick="generateBanner()">Cookie Einstellungen ändern</button>';
+    } else {
+        cookieBanner.innerHTML = '<button onclick="generateBanner()">Change cookie settings</button>';
+    }
 }
 
 function generateBanner() {
-    let html = '';
-
     if (document.documentElement.lang === 'de') {
-        html = getDeHtml();
+        cookieBanner.innerHTML = getDeHtml();
     } else {
-        html = getEnHtml();
+        cookieBanner.innerHTML = getEnHtml();
     }
-
-    cookieBanner.innerHTML = html;
 
     const performanceCheckBox = document.getElementById('performanceCheckBox');
     const functionalCheckbox = document.getElementById("functionalCheckBox");
@@ -25,30 +30,16 @@ function generateBanner() {
 
     const cookie = getCookie('cookieBanner');
 
-    if (typeof cookie !== 'undefined') {
-        const json = JSON.parse(cookie);
-
-        if (json['performance'] === 'block') {
-            performanceCheckBox.checked = false;
-        } else {
-            performanceCheckBox.checked = true;
-        }
-
-        if (json['functional'] === 'block') {
-            functionalCheckbox.checked = false;
-        } else {
-            functionalCheckbox.checked = true;
-        }
-
-        if (json['marketing'] === 'block') {
-            marketingCheckbox.checked = false;
-        } else {
-            marketingCheckbox.checked = true;
-        }
-    } else {
+    if (cookie === '') {
         performanceCheckBox.checked = true;
         functionalCheckbox.checked = true;
         marketingCheckbox.checked = true;
+    } else {
+        const json = JSON.parse(cookie);
+
+        performanceCheckBox.checked = json['performance'] !== 'block';
+        functionalCheckbox.checked = json['functional'] !== 'block';
+        marketingCheckbox.checked = json['marketing'] !== 'block';
     }
 }
 
@@ -61,18 +52,15 @@ function getDeHtml() {
         "einiger Arten von Cookies kann jedoch Ihre Erfahrung mit der Website und den Diensten, " +
         "die wir anbieten können, beeinträchtigen. <a href='" + link + "'>Erfahre mehr</a>"
 
-    return "<div class='bottom'>" +
-        "<div class='text'>" + textDe + "</div>" +
-        "<div class='checks'>" +
-        "<div class='checkboxes'>" +
-        "<div class='checkbox'><input type='checkbox' id='performanceCheckBox'><label for='performanceCheckBox'>Performance</label></div>" +
-        "<div class='checkbox'><input type='checkbox' id='functionalCheckBox'><label for='functionalCheckBox'>Funktionale</label></div>" +
-        "<div class='checkbox'><input type='checkbox' id='marketingCheckBox'><label for='marketingCheckBox'>Marketing</label></div>" +
-        "</div><div class='buttons'>" +
-        "<button onclick='blockBanner()' id='blockAll'>Alle Blockieren</button>" +
-        "<button onclick='acceptAll()' id='acceptAll'>Alle Akzeptieren</button>" +
-        "<button onclick='saveBanner()' id='saveBanner'>Speichern</button>" +
-        "</div></div></div>";
+    return getHtml(
+        textDe,
+        "Performance",
+        "Funktionale",
+        "Marketing",
+        "Alle Blockieren",
+        "Alle Akzeptieren",
+        "Speichern"
+        );
 }
 
 function getEnHtml() {
@@ -83,16 +71,30 @@ function getEnHtml() {
         "blocking some types of cookies may impact your experience of the site and the services we are able to offer. " +
         "<a href='" + link + "'>Learn more</a>";
 
+    return getHtml(
+        textEn,
+        "Performance",
+        "Functional",
+        "Marketing",
+        "Block All",
+        "Accept All",
+        "Save"
+    );
+}
+
+function getHtml(text, performance, functional, marketing, blockAll, acceptAll, save) {
     return "<div class='bottom'>" +
-        "<div class='text'>" + textEn + "</div>" +
+        "<div class='text'>" + text + "</div>" +
         "<div class='checks'>" +
-        "<div class='checkBox'><input type='checkbox' id='performanceCheckBox'><label for='performanceCheckBox'>Performance</label></div>" +
-        "<div class='checkBox'><input type='checkbox' id='functionalCheckBox'><label for='functionalCheckBox'>Functional</label></div>" +
-        "<div class='checkBox'><input type='checkbox' id='marketingCheckBox'><label for='marketingCheckBox'>Marketing</label></div>" +
-        "<button onclick='blockBanner()' id='blockAll'>Block All</button>" +
-        "<button onclick='acceptAll()' id='acceptAll'>Accept All</button>" +
-        "<button onclick='saveBanner()' id='saveBanner'>Save</button>" +
-        "</div></div>";
+        "<div class='checkboxes'>" +
+        "<div class='checkbox'><input type='checkbox' id='performanceCheckBox'><label for='performanceCheckBox'>" + performance + "</label></div>" +
+        "<div class='checkbox'><input type='checkbox' id='functionalCheckBox'><label for='functionalCheckBox'>" + functional + "</label></div>" +
+        "<div class='checkbox'><input type='checkbox' id='marketingCheckBox'><label for='marketingCheckBox'>" + marketing + "</label></div>" +
+        "</div><div class='buttons'>" +
+        "<button onclick='blockBanner()' id='blockAll'>" + blockAll + "</button>" +
+        "<button onclick='acceptAll()' id='acceptAll'>" + acceptAll + "</button>" +
+        "<button onclick='saveBanner()' id='saveBanner'>" + save + "</button>" +
+        "</div></div></div>";
 }
 
 function removeElements() {
@@ -134,6 +136,15 @@ function blockBanner() {
     window.top.location.reload();
 }
 
+function acceptAll() {
+    const data = {'performance': 'show', 'functional': 'show', 'marketing': 'show'};
+    const jsonData = JSON.stringify(data);
+
+    setCookie('cookieBanner', jsonData)
+
+    window.top.location.reload();
+}
+
 function saveBanner() {
     const performance = document.getElementById('performanceCheckBox');
     const functional = document.getElementById('functionalCheckBox');
@@ -166,33 +177,24 @@ function saveBanner() {
     window.top.location.reload();
 }
 
-function acceptAll() {
-    const data = {'performance': 'show', 'functional': 'show', 'marketing': 'show'};
-    const jsonData = JSON.stringify(data);
-
-    setCookie('cookieBanner', jsonData)
-
-    window.top.location.reload();
-}
-
-function getCookie(cname) {
-    let name = cname + "=";
+function getCookie(cName) {
+    let name = cName + "=";
     let ca = document.cookie.split(';');
     for(let i = 0; i < ca.length; i++) {
         let c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === ' ') {
             c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
             return c.substring(name.length, c.length);
         }
     }
     return "";
 }
 
-function setCookie(cname, cvalue) {
+function setCookie(cName, cValue) {
     const d = new Date();
     d.setTime(d.getTime() + (cookieBannerLifeTime * 24 * 60 * 60 * 1000));
     let expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=Strict";
+    document.cookie = cName + "=" + cValue + ";" + expires + ";path=/;SameSite=Strict";
 }

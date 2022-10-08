@@ -21,6 +21,8 @@ Setting lang in html to de will load german text setting en will load english te
 <script src="cookieBanner.js"></script>
 ```
 
+Generates a banner if the cookieBanner cookie is not set, else it will generate a button, which will show the banner if clicked on
+
 ### Block Elements:
 
 ```html
@@ -34,12 +36,6 @@ You can change them in th cookieBanner.js file
 ```js
 const link = '#cookiesInfo';
 const cookieBannerLifeTime = 365;
-```
-
-### Change cookie Options
-Add this button
-```html
-<button onclick="generateBanner()">Change Cookie Settings</button>
 ```
 
 ### CookieBanner Cookie
